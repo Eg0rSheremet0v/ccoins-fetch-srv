@@ -11,6 +11,7 @@ import io
 
 import logging
 
+
 class Converter:
     
     @staticmethod
@@ -34,7 +35,11 @@ class Maps(Resource):
     
     @ns_root.doc(description='Get info about maps.')
     def get(self):
-        return make_response(render_template('index.html'))
+        #TODO: change currency data
+        return make_response(render_template('index.html', 
+                                             currency_name=utils.CURRENT_CURRENCY, 
+                                             current_date=utils.Transform.current_date(),
+                                             current_price=utils.Transform.current_price()))
     
     @ns_root.expect(rp_coins_schema)
     @ns_root.doc(description='Get map for the currency.')
