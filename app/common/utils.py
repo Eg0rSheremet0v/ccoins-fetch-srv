@@ -13,6 +13,12 @@ class DateFormatException(Exception):
 CURRENT_CURRENCY = 'BTCUSDT'
 
 
+def get_currencies_list():
+    clist = CoinsCurrency.get_currencies_list()
+    clist = [value.get('symbol') for value in clist]
+    return clist
+
+
 class Transform():
     
     @staticmethod

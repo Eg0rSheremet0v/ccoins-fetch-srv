@@ -30,12 +30,19 @@ class Version(Resource):
         return {'version': f"v{app.config.get('APP_VERSION')}"}
     
 
+@ns_root.route("/currencies")
+class SymbolsList(Resource):
+    
+    @ns_root.doc(description='Get list of all currencies')
+    def get(self):
+        return utils.get_currencies_list()
+
+
 @ns_root.route("/maps")
 class Maps(Resource):
     
     @ns_root.doc(description='Get info about maps.')
     def get(self):
-        #TODO: change currency data
         return make_response(render_template('index.html', 
                                              currency_name=utils.CURRENT_CURRENCY, 
                                              current_date=utils.Transform.current_date(),

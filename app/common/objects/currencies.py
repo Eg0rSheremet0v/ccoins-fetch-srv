@@ -67,3 +67,8 @@ class CoinsCurrency(object):
         response = CLIENT.get_historical_klines(self.name, interval, time_range_start, time_range_stop)
         klines = [Kline(*data) for data in response]
         return klines
+    
+    @staticmethod
+    def get_currencies_list():
+        response = CLIENT.get_all_tickers()
+        return response
