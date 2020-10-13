@@ -6,7 +6,7 @@ class Config:
 
     COINS_CURRENCIES = ['BTCUSDT', 'ZECBTC', 'ATOMBTC', 'ADABTC', 'ETCBTC', 'LINKBTC']
     
-    APP_NAME = "coins_app"
+    APP_NAME = "ccoins-fetch-srv"
     APP_VERSION = "0.0.1"
     
     APP_HOST = '127.0.0.1'

@@ -11,6 +11,7 @@ import io
 
 import logging
 
+
 class Converter:
     
     @staticmethod
@@ -34,24 +35,28 @@ class Maps(Resource):
     
     @ns_root.doc(description='Get info about maps.')
     def get(self):
-        return make_response(render_template('index.html'))
+        #TODO: change currency data
+        return make_response(render_template('index.html', 
+                                             currency_name=utils.CURRENT_CURRENCY, 
+                                             current_date=utils.Transform.current_date(),
+                                             current_price=utils.Transform.current_price()))
     
     @ns_root.expect(rp_coins_schema)
     @ns_root.doc(description='Get map for the currency.')
     def post(self):
         try:
             coins_data = Converter.request_to_obj(request)
+        except BaseException as ex:
+            logging.exception('Failed to transform json to python object.')
+            return {'code': 400, 'error': str(ex), 'message': 'Failed to transform json to python object.'}
+        try:
             if utils.Transform.create_map(coins_data):
                 return {'code': 200, 'status': 'Success'}
             else:
                 return {'code': 401, 'status': 'Data Transform Failed'}
         except BaseException as ex:
-            logging.error('An Error occurred while getting currency map:')
-            logging.error(ex)
-            return {
-                'code': 400,
-                'error': str(ex)
-            }
+            logging.exception('Failed to create currency map.')
+            return {'code': 400, 'error': str(ex), 'message': 'Failed to create currency map.'}
             
 @app.after_request
 def add_header(response):

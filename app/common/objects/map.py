@@ -10,9 +10,9 @@ class CurrencyMap(object):
         self.cur_name = cur_name
 
     
-    def _to_df(self, close_data, groupby_first, groupby_second):
-        close_data = np.array(close_data)
-        coin_df = pd.DataFrame(close_data, columns=["DATE", self.cur_name])
+    def _to_df(self, data, groupby_first, groupby_second):
+        data = np.array(data)
+        coin_df = pd.DataFrame(data, columns=["DATE", self.cur_name])
         coin_df = coin_df.set_index("DATE")
         coin_df[self.cur_name] = pd.to_numeric(coin_df[self.cur_name], errors='coerce')
         coin_df.dropna(inplace=True)
@@ -30,8 +30,8 @@ class CurrencyMap(object):
         df_m = df_m.unstack(level=0)
         return df_m
     
-    def generate(self, data, groupby_first, groupby_second):
+    def generate(self, data, groupby_first, groupby_second, file_name, target_name):
         df = self._to_df(data, groupby_first, groupby_second)
         fig, ax = plt.subplots(figsize=(11, 9))
-        sbn.heatmap(df).figure.savefig('app/static/output_map.png')
+        sbn.heatmap(df).set_title(f"Heatmap of {target_name} <{self.cur_name}>").figure.savefig(file_name)
         
