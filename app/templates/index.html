@@ -1,9 +1,14 @@
 <!doctype html>
-<html>
+<html lang="en">
     <head>
+        <title>Currency Info Page</title>
     </head>
     <body>
-        <h2>Response Currencies Map</h2>
-        <img src= "{{url_for('static', filename='output_map.png')}}" >
+        <h1 style="text-align: center;">Currency Info Page</h1>
+        <h2 style="text-align: center;">"{{currency_name}}"</h2>
+        <h3 style="padding-left: 1cm;"><u>Data from {{current_date}}</u></h3>
+        <p style="font-size: larger; padding-left: 1cm;">- current price: {{current_price}}</p>
+        <img title='Price', src= "{{url_for('static', filename='output_price_map.png')}}", width="550" , height="550", style="padding-left: 1cm;">
+        <img title='Volume', src= "{{url_for('static', filename='output_volume_map.png')}}", width="550" , height="550", style="padding-left: 1cm;">
     </body>
 </html>

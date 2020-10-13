@@ -34,6 +34,10 @@ class Kline(object):
         return (self.close_date, self.close)
     
     @property
+    def volume_data(self):
+        return (self.close_date, self.volume)
+    
+    @property
     def open_data(self):
         return (self.open_date, self.open)
     
