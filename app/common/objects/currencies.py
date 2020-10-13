@@ -56,22 +56,10 @@ class CoinsCurrency(object):
 
     @property
     def price(self):
-        try:
-            response = CLIENT.get_symbol_ticker(symbol=self.name)
-            return response.get('price')
-        except BaseException as ex:
-            print('An Error occurred while getting current price.')
-            print(ex)
-            return None
+        response = CLIENT.get_symbol_ticker(symbol=self.name)
+        return response.get('price')
             
     def historical_data(self, interval, time_range_start, time_range_stop = None):
-        try:
-            # interval example <Client.KLINE_INTERVAL_4HOUR>
-            # time_range example <"1 Dec, 2017", "2 Dec, 2017">
-            response = CLIENT.get_historical_klines(self.name, interval, time_range_start, time_range_stop)
-            klines = [Kline(*data) for data in response]
-            return klines
-        except BaseException as ex:
-            logging.error('An Error occurred while getting historical data.')
-            logging.error(ex)
-            return None
+        response = CLIENT.get_historical_klines(self.name, interval, time_range_start, time_range_stop)
+        klines = [Kline(*data) for data in response]
+        return klines

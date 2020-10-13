@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+    <h1>{{app_name}} v{{app_version}}</h1>
+    <p>You will be redirected to the REST API documentation <a href="/docs">page</a> (<span class="time-left"></span>)</p>
+    <script>
+        var delay = 8,
+        output = document.querySelector('.time-left'),
+        timer = setInterval(function() {
+            output.textContent = --delay;
+            if (!delay) {
+                clearInterval(timer);
+                window.location.href = "/docs";
+            }
+        }, 800);
+        output.textContent = delay;
+    </script>
+</html>
