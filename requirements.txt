@@ -1,0 +1,7 @@
+pandas
+numpy
+python-binance
+flask
+flask-script
+flask-restplus
+seaborn
